@@ -128,17 +128,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             val tv2 = findViewById<View>(R.id.bearingAngleID) as TextView
             tv2.text = "Bearing Angle: $bearingAngleToPoint"
 
-            if(bearingAngleToPoint > (phoneAngle+10)){
+            if(bearingAngleToPoint > (phoneAngle+20)){
                 // Move Right
                 funcSend(3)
             }
-            if((bearingAngleToPoint+10) < phoneAngle){
+            if((bearingAngleToPoint+20) < phoneAngle){
                 // Move Left
                 funcSend(1)
             }
-            if(abs(bearingAngleToPoint - phoneAngle) < 10){
+            if(abs(bearingAngleToPoint - phoneAngle) < 20){
                 // move forward if phone away from location
-                if((abs(alfiHallLat - location.latitude)<0.0001)&&(abs(alfiHallLong - location.longitude)<0.0001)){
+                if((abs(alfiHallLat - location.latitude)>0.0002)&&(abs(alfiHallLong - location.longitude)>0.0002)){
                     // Move Forward
                     funcSend(5)
                 }
@@ -203,14 +203,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         port.write(int.to2ByteArray(), 10)
     }
 
-    fun stopProgram(view: View) {finish();}
+    fun stopProgram(view: View) {
+        funcSend(8)
+        finish()
+    }
 }
-
-//if(location.getLongitude() < 31.5015){ // West of Alfi Hall
-//    //moveForward
-//    funcSend(5);
-//}
-//if(location.getLongitude() > 31.5015){ // East of Alfi hall
-//    //STOP
-//    funcSend(8);
-//}
