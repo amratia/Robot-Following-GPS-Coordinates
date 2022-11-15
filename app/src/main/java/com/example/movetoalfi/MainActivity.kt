@@ -1,25 +1,26 @@
 package com.example.movetoalfi
 
-import android.hardware.usb.UsbManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
-import com.hoho.android.usbserial.driver.UsbSerialPort
-import com.hoho.android.usbserial.driver.UsbSerialProber
 import android.Manifest
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
+import android.hardware.usb.UsbManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import android.hardware.Sensor
-import android.hardware.SensorManager
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
+import com.hoho.android.usbserial.driver.UsbSerialPort
+import com.hoho.android.usbserial.driver.UsbSerialProber
 import kotlin.math.abs
 import kotlin.math.atan
+
 //import android.widget.ImageView
 //import android.view.animation.Animation
 //import android.view.animation.RotateAnimation
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
+    // access background location
     )
     //-------------------------------------------------------------------------------------------
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         btnLocation = findViewById(R.id.btnLocation)
         with(btnLocation) {
             this?.setOnClickListener(View.OnClickListener {
+                funcSend(8)
                 if (ActivityCompat.checkSelfPermission(
                         this@MainActivity,
                         Manifest.permission.ACCESS_FINE_LOCATION
@@ -203,6 +206,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         port.write(int.to2ByteArray(), 10)
     }
 
+    fun stopRobot(view: View) {
+        for (i in 0..100) {
+            funcSend(8)
+        }
+    }
+    
     fun stopProgram(view: View) {
         funcSend(8)
         finish()
