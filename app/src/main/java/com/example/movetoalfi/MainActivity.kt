@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             })
         }
     }
-    //---------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------- Angle Sensor Functions
     override fun onPause() {
         super.onPause()
         // to stop the listener and save battery
@@ -211,9 +211,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             funcSend(8)
         }
     }
-    
+
     fun stopProgram(view: View) {
         funcSend(8)
         finish()
     }
 }
+// code with Omnia and Noura
